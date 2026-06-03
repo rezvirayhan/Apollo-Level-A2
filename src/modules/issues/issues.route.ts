@@ -19,7 +19,7 @@ router.post(
 router.patch(
   "/:id",
   authMiddlewares.auth,
-  roleMiddlewares.authorize("contributor", "maintainer"),
+  roleMiddlewares.authorize( "maintainer"),
   issueControllers.update,
 );
 
