@@ -6,3 +6,5 @@ Method -> POST Time -> 1780172399058, URL -> /api/auth/refresh-token
 Method -> POST Time -> 1780172438706, URL -> /api/auth/refresh-token
 
 Method -> POST Time -> 1780172590183, URL -> /api/auth/refresh-token
+
+Method -> GET Time -> 1780486455105, URL -> /favicon.ico

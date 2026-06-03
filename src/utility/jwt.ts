@@ -7,15 +7,10 @@ export const generateToken = (payload: {
   role: string;
 }) => {
   return jwt.sign(payload, config.jwt_secret, {
-    expiresIn: config.jwt_expires_in,
+    expiresIn: config.jwt_expires_in as any,
   });
 };
 
 export const verifyToken = (token: string) => {
   return jwt.verify(token, config.jwt_secret);
-};
-
-export const jwtUtils = {
-  generateToken,
-  verifyToken,
 };

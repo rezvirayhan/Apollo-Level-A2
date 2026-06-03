@@ -119,12 +119,17 @@ const updateIssue = async (
       message: "Only open issues can be updated",
     };
   }
-  const allowed: IUpdateIssue = {
-    title: payload.title,
-    description: payload.description,
-    type: payload.type,
-  };
+  const allowed: IUpdateIssue = {};
 
+  if (payload.title !== undefined) {
+    allowed.title = payload.title;
+  }
+  if (payload.description !== undefined) {
+    allowed.description = payload.description;
+  }
+  if (payload.type !== undefined) {
+    allowed.type = payload.type;
+  }
   return issueModels.updateIssue(id, allowed);
 };
 
