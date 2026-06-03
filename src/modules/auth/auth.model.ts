@@ -1,11 +1,8 @@
 import { pool } from "../../db";
 import type { ISignupPayload } from "./auth.interface";
 
-const createUser = async (
-  payload: ISignupPayload,
-  hashedPassword: string,
-) => {
-  const { name, email } = payload;
+const createUser = async (payload: ISignupPayload, hashedPassword: string) => {
+  const { name, email, role } = payload;
 
   const result = await pool.query(
     `
@@ -13,28 +10,29 @@ const createUser = async (
       (
         name,
         email,
-        password
+        password,
+        role
       )
       VALUES
-      (
-        $1,
-        $2,
-        $3
-      )
+      ($1, $2, $3, $4)
       RETURNING
-      id,
+        id,
+        name,
+        email,
+        role,
+        created_at,
+        updated_at
+    `,
+    [
       name,
       email,
-      role,
-      created_at,
-      updated_at
-    `,
-    [name, email, hashedPassword],
+      hashedPassword,
+      role || "contributor", // 👈 default fallback
+    ],
   );
 
   return result.rows[0];
 };
-
 const findUserByEmail = async (email: string) => {
   const result = await pool.query(
     `
